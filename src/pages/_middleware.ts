@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { COMING_SOON, MAINTENANCE } from './config'
+import { COMING_SOON, MAINTENANCE } from '../config'
 
 function shouldExclude(request: NextRequest) {
     const path = request.nextUrl.pathname;
