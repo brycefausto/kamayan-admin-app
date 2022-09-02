@@ -30,7 +30,7 @@ function ActivityTab() {
   return (
     <Card>
       <CardHeader
-        avatar={<Avatar src="/static/images/avatars/5.jpg" />}
+        avatar={<Avatar src="" />}
         action={
           <IconButton color="primary">
             <MoreHorizTwoToneIcon fontSize="medium" />
@@ -64,11 +64,13 @@ function ActivityTab() {
           Welcome to organizing your remote office for maximum productivity.
         </Typography>
       </Box>
-      <CardMedia
+      {/* <CardMedia
         sx={{ minHeight: 280 }}
         image="/static/images/placeholders/covers/6.jpg"
         title="Card Cover"
-      />
+      /> */}
+      <Card sx={{ width: 800, minHeight: 364 }}>
+      </Card>
       <Box p={3}>
         <Typography variant="h2" sx={{ pb: 1 }}>
           Organizing Your Remote Office for Maximum Productivity

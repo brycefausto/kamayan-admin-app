@@ -98,7 +98,7 @@ const ProfileCover: FC<{ user: any }> = ({ user }) => {
         </Box>
       </Box>
       <CardCover>
-        <CardMedia image={user.coverImg} />
+        {user.coverImg ? <CardMedia image={user.coverImg} /> : <Card sx={{ width: '800px', height: '364px' }}></Card>}
         <CardCoverAction>
           <Input accept="image/*" id="change-cover" multiple type="file" />
           <label htmlFor="change-cover">
