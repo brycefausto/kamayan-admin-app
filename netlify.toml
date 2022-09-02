@@ -2,8 +2,8 @@
     NEXT_PUBLIC_BACKEND_URL = "http://localhost/sites/recipe-admin-api/public"
     NEXT_PUBLIC_WEBSITE = "www.kamayan.com"
     NEXT_PUBLIC_WEBSITE_LINK = "http://www.kamayan.com"
-    NEXT_PUBLIC_COMING_SOON = false
-    NEXT_PUBLIC_MAINTENANCE = false
+    NEXT_PUBLIC_COMING_SOON = "false"
+    NEXT_PUBLIC_MAINTENANCE = "false"
 
     NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY = "public_hfvKz2qpYwpxb7QlEbEQDFUyoF4="
     NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT= "https://ik.imagekit.io/webcoderbase"
