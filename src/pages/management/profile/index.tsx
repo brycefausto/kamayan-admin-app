@@ -8,7 +8,6 @@ import ProfileCover from '@/content/Management/Users/details/ProfileCover';
 import RecentActivity from '@/content/Management/Users/details/RecentActivity';
 import Feed from '@/content/Management/Users/details/Feed';
 import PopularTags from '@/content/Management/Users/details/PopularTags';
-import MyCards from '@/content/Management/Users/details/MyCards';
 import Addresses from '@/content/Management/Users/details/Addresses';
 import { ReactElement } from 'react';
 
@@ -49,9 +48,6 @@ function ManagementUserProfile() {
           </Grid>
           <Grid item xs={12} md={4}>
             <PopularTags />
-          </Grid>
-          <Grid item xs={12} md={7}>
-            <MyCards />
           </Grid>
           <Grid item xs={12} md={5}>
             <Addresses />

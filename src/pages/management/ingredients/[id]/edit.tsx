@@ -10,11 +10,9 @@ import { Ingredient } from '@/models/ingredient'
 
 import LoaderWrapper from '@/components/LoaderWrapper'
 import EditIngredientForm from '@/content/Management/Ingredients/EditIngredientForm'
-import { fetcher } from '@/lib/utils'
+import { useLoadSingleData } from '@/hooks/loadSingleData'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect } from 'react'
-import useSWR from 'swr'
-import { useLoadSingleData } from '@/hooks/loadSingleData'
 
 export interface EditIngredientProps {
     ingredient: Ingredient
