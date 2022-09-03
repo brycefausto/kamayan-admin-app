@@ -3,7 +3,7 @@
   publish = ".next"
 
 [build.environment]
-    NEXT_PUBLIC_BACKEND_URL = "http://localhost/sites/recipe-admin-api/public"
+    NEXT_PUBLIC_BACKEND_URL = "http://kamayanapi-env.eba-fwpvbpj5.ap-southeast-2.elasticbeanstalk.com"
     NEXT_PUBLIC_WEBSITE = "www.kamayan.com"
     NEXT_PUBLIC_WEBSITE_LINK = "http://www.kamayan.com"
     NEXT_PUBLIC_COMING_SOON = "false"
