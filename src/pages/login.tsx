@@ -84,6 +84,7 @@ export default function Login() {
                 </Typography>
                 <Box
                     component="form"
+                    method="post"
                     onSubmit={formik.handleSubmit}
                     noValidate
                     sx={{ mt: 1 }}>

@@ -3,6 +3,7 @@ import axios from '@/lib/axios'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { emptyUser, User } from '@/models/user'
+import { isServer } from '@/lib/utils'
 
 export interface UseAuthProps {
     middleware?: 'guest' | 'auth'
@@ -50,7 +51,12 @@ export const useAuth = ({
 
                 router.push('/verify-email')
             }),
+            { revalidateOnFocus: false }
     )
+
+    if (!user && isServer) {
+        user = emptyUser
+    }
 
     const isLoaded = !!user
     const isAuth = !!user && !!user.id

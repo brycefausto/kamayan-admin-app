@@ -15,7 +15,7 @@ function Categories() {
         <title>Categories</title>
       </Head>
       <PageTitleWrapper>
-        <PageHeader title="Categories" createButtonLabel="Create Category" />
+        <PageHeader title="Categories" createButtonLabel="Create Category" importButtonLabel="Import Categories" />
       </PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid

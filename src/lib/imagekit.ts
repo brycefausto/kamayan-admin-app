@@ -1,4 +1,4 @@
-import { BACKEND_URL, IMAGEKIT_AUTHENTICATION_PATH, IMAGEKIT_APP_FOLDER_PATH, IMAGEKIT_PUBLIC_KEY, IMAGEKIT_URL_ENDPOINT } from "@/config";
+import { BACKEND_URL, IMAGEKIT_APP_FOLDER_PATH, IMAGEKIT_PUBLIC_KEY, IMAGEKIT_URL_ENDPOINT } from "@/config";
 import ImageKit from "imagekit-javascript";
 import { UploadResponse } from "imagekit-javascript/dist/src/interfaces";
 import IKResponse from "imagekit-javascript/dist/src/interfaces/IKResponse";
@@ -8,7 +8,7 @@ import IKResponse from "imagekit-javascript/dist/src/interfaces/IKResponse";
 export const imagekit = new ImageKit({
     publicKey : IMAGEKIT_PUBLIC_KEY,
     urlEndpoint : IMAGEKIT_URL_ENDPOINT,
-    authenticationEndpoint : BACKEND_URL + IMAGEKIT_AUTHENTICATION_PATH,
+    authenticationEndpoint : BACKEND_URL + '/api/image-upload/auth',
 });
 
 // URL generation

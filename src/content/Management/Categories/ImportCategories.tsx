@@ -17,7 +17,7 @@ const validationSchema = yup.object({
     image_files: yupMultipleImageValidator,
 })
 
-export default function ImportIngredientsForm() {
+export default function ImportCategoriesForm() {
     const router = useRouter()
     const [showProgress, setShowProgress] = useState(false)
     const [progress, setProgress] = useState(0)
@@ -39,12 +39,12 @@ export default function ImportIngredientsForm() {
                         const name = image_file.name.replace(/\.[^/\\.]+$/, '')
                         const uploadedImage = await uploadImage(
                             image_file as File,
-                            'ingredients',
-                            [name, 'ingredient'],
+                            'categories',
+                            [name, 'category'],
                         )
                         uploadedImageName = uploadedImage.name
 
-                        const result = await axios.post('/api/ingredients', {
+                        const result = await axios.post('/api/category', {
                             name,
                             image_name: uploadedImageName,
                         })
@@ -58,7 +58,7 @@ export default function ImportIngredientsForm() {
 
                 await sleep(500)
 
-                alert('Ingredients successfully uploaded')
+                alert('Categories successfully uploaded')
                 setProgress(0)
                 setShowProgress(false)
 
@@ -100,9 +100,9 @@ export default function ImportIngredientsForm() {
                     sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            Import ingredients using image files. The name of
+                            Import categories using image files. The name of
                             the image will be used as display name of the
-                            uploaded ingredient. You can only upload up to {MAX_FILE_COUNT} images at a time.
+                            uploaded category. You can only upload up to {MAX_FILE_COUNT} images at a time.
                         </Grid>
                         <Grid item xs={12}>
                             <MultipleImageSelector

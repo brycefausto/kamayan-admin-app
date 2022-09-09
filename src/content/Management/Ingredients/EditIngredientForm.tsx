@@ -56,7 +56,7 @@ export default function EditIngredientForm({ ingredient }: EditIngredientProps) 
 
     const handleImageChange: ImageChangeHandler = (_event, file) => {
         if (file) {
-            formik.setFieldValue('imageFile', file)
+            formik.setFieldValue('image_file', file)
         }
     }
 

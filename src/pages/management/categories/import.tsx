@@ -5,18 +5,18 @@ import Head from 'next/head'
 import { Container, Grid } from '@mui/material'
 
 import PageTitleWrapper from '@/components/PageTitleWrapper'
+import ImportCategoriesForm from '@/content/Management/Categories/ImportCategories'
 import FormPageHeader from '@/content/Management/Common/FormPageHeader'
-import ImportIngredientsForm from '@/content/Management/Ingredients/ImportIngredients'
 import { ReactElement } from 'react'
 
-function ImportIngredients() {
+function ImportCategories() {
     return (
         <>
             <Head>
-                <title>Ingredients</title>
+                <title>Categories</title>
             </Head>
             <PageTitleWrapper>
-                <FormPageHeader title="Import Ingredient" />
+                <FormPageHeader title="Import Categories" />
             </PageTitleWrapper>
             <Container maxWidth="lg">
                 <Grid
@@ -26,7 +26,7 @@ function ImportIngredients() {
                     alignItems="stretch"
                     spacing={3}>
                     <Grid item xs={12}>
-                        <ImportIngredientsForm />
+                        <ImportCategoriesForm />
                     </Grid>
                 </Grid>
             </Container>
@@ -35,8 +35,8 @@ function ImportIngredients() {
     )
 }
 
-ImportIngredients.getLayout = (page: ReactElement) => (
+ImportCategories.getLayout = (page: ReactElement) => (
     <SidebarLayout>{page}</SidebarLayout>
 )
 
-export default ImportIngredients
+export default ImportCategories

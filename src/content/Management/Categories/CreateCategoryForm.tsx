@@ -1,69 +1,67 @@
-import AsynchronousAutocomplete from '@/components/AsynchronousAutocomplete'
-import ImageSelector from '@/components/ImageSelector'
-import MultiSelect from '@/components/MultiSelect'
-import { MAX_FILE_SIZE } from '@/config'
-import { formatBytes, yupImageValidator } from '@/lib/utils'
+import ImageSelector, { ImageChangeHandler } from '@/components/ImageSelector'
+import axios from '@/lib/axios'
+import { uploadImage } from '@/lib/imagekit'
+import { getParentDirectory, yupImageValidator } from '@/lib/utils'
 import {
     Box,
     Button,
     Card,
-    CssBaseline,
-    FormControl,
-    Grid,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField
+    CssBaseline, Grid, TextField
 } from '@mui/material'
 import { useFormik } from 'formik'
-import { ChangeEvent } from 'react'
+import { useRouter } from 'next/router'
 import * as yup from 'yup'
-import { favorites, tags } from './CategoryData'
+import FormErrorText from '../Common/FormErrorText'
 
 const validationSchema = yup.object({
-    recipeName: yup
+    name: yup
         .string()
-        .min(2, 'Recipe Name should be of minimum 3 characters length')
-        .required('Recipe Name is required'),
-    favorite: yup.string().required('Favorite is required'),
-    tags: yup.array().of(yup.string()),
-    contributorId: yup.string().required('Contributor is required'),
-    imageFile: yupImageValidator
+        .min(2, 'Name should be of minimum 3 characters length')
+        .required('Name is required'),
+    image_file: yupImageValidator
 })
 
-// TODO simulate loading data
-function sleep(delay = 0) {
-    return new Promise(resolve => {
-        setTimeout(resolve, delay)
-    })
-}
-
 export default function CreateCategoryForm() {
+    const router = useRouter()
     const formik = useFormik({
         initialValues: {
-            recipeName: '',
-            favorite: '',
-            tags: [],
-            contributorId: '',
-            imageFile: undefined,
+            name: '',
+            image_file: undefined,
         },
         validationSchema: validationSchema,
-        onSubmit: ({ recipeName, favorite, tags, contributorId, imageFile }) => {
-            // TODO submit data here
+        onSubmit: async ({ name, image_file }) => {
+            try {
+                let uploadedImageName = ''
+
+                if (image_file) {
+                    const uploadedImage = await uploadImage(
+                        image_file as File,
+                        'categories',
+                        [name, 'category'],
+                    )
+                    uploadedImageName = uploadedImage.name
+                }
+
+                const result = await axios.post('/api/categories', {
+                    name,
+                    image_name: uploadedImageName,
+                })
+
+                console.log('result', result)
+
+                alert("Category successfully saved")
+                router.push(getParentDirectory(router.pathname))
+            } catch (error: any) {
+                console.error(error.message)
+            }
         },
     })
 
-    const tagsOptions = async () => {
-        await sleep(1e3)
-
-        return tags
-    }
-
-    const handleOnTagsChange = (
-        _e: ChangeEvent<HTMLInputElement>,
-        value: string[],
-    ) => {
-        formik.setFieldValue('tags', value, true)
+    const handleImageChange: ImageChangeHandler = (event, image_file) => {
+        if (image_file) {
+            console.log('image file changed')
+            formik.setFieldValue('image_file', image_file)
+        }
     }
 
     return (
@@ -83,58 +81,26 @@ export default function CreateCategoryForm() {
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
                             <TextField
-                                name="recipeName"
+                                name="name"
                                 required
                                 fullWidth
-                                id="recipeName"
-                                label="Recipe Name"
+                                id="name"
+                                label="Name"
                                 autoFocus
-                                value={formik.values.recipeName}
+                                value={formik.values.name}
                                 onChange={formik.handleChange}
                                 error={
-                                    formik.touched.recipeName &&
-                                    Boolean(formik.errors.recipeName)
+                                    formik.touched.name &&
+                                    Boolean(formik.errors.name)
                                 }
                                 helperText={
-                                    formik.touched.recipeName &&
-                                    formik.errors.recipeName
+                                    formik.touched.name && formik.errors.name
                                 }
                             />
                         </Grid>
-                        <Grid item xs={6}>
-                            <FormControl fullWidth>
-                                <InputLabel id="favorite">
-                                    Favorite
-                                </InputLabel>
-                                <Select
-                                    labelId="favorite"
-                                    id="favorite"
-                                    name="favorite"
-                                    value={formik.values.favorite}
-                                    label="Favorite"
-                                    onChange={formik.handleChange}>
-                                    {Object.entries(favorites).map(
-                                        ([key, value]) => (
-                                            <MenuItem key={key} value={value}>
-                                                {key}
-                                            </MenuItem>
-                                        ),
-                                    )}
-                                </Select>
-                            </FormControl>
-                        </Grid>
                         <Grid item xs={12}>
-                            <MultiSelect
-                                label="Tags"
-                                onChange={handleOnTagsChange}
-                                asyncOptions={tagsOptions}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <ImageSelector />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <AsynchronousAutocomplete label="Choose Contributor" />
+                            <ImageSelector onChange={handleImageChange} />
+                            <FormErrorText>{formik.touched.image_file && formik.errors.image_file}</FormErrorText>
                         </Grid>
                     </Grid>
                     <Button

@@ -1,4 +1,4 @@
-import { MAX_FILE_SIZE } from '@/config'
+import { MAX_FILE_COUNT, MAX_FILE_SIZE } from '@/config'
 import axios from '@/lib/axios'
 import { isArray } from 'lodash'
 import * as yup from 'yup'
@@ -45,9 +45,8 @@ export const yupImageValidator = yup
 
 export const yupMultipleImageValidator = yup
     .array()
-    .min(1, 'Upload at least 1 file')
-    .max(50, 'You can only upload maximum of 50 files')
-    .required('Image Files are required')
+    .max(MAX_FILE_COUNT, `You can only select up to ${MAX_FILE_COUNT} files at a time`)
+    .required('Image files are required')
     .test(
         'fileSize',
         `The some of the files is too large. The maximum file size is ${formatBytes(

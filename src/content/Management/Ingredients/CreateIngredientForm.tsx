@@ -54,7 +54,8 @@ export default function CreateIngredientForm() {
 
     const handleImageChange: ImageChangeHandler = (event, image_file) => {
         if (image_file) {
-            formik.setFieldValue('imageFile', image_file)
+            console.log('image file changed')
+            formik.setFieldValue('image_file', image_file)
         }
     }
 

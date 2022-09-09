@@ -22,8 +22,10 @@ export interface ImagesChangeHandler {
 }
 
 interface MultipleImageSelectorProps {
+    name?: string
     value?: string
     onChange?: ImagesChangeHandler
+    onBlur?: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 function joinFileNames(files: File[]) {
@@ -45,13 +47,15 @@ function joinFileNames(files: File[]) {
 }
 
 export default function MultipleImageSelector({
+    name,
     onChange,
+    onBlur
 }: MultipleImageSelectorProps) {
     const [textDisplay, setTextDisplay] = useState('')
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const files = Array.from(event.target.files as FileList)
 
-        if (files && files.length) {
+        if (files.length) {
             setTextDisplay(joinFileNames(files))
 
             if (onChange) {
@@ -78,10 +82,11 @@ export default function MultipleImageSelector({
                             hidden
                             accept="image/*"
                             id="icon-button-file"
-                            name="icon-button-file"
                             type="file"
                             multiple
+                            name={name || 'multiple-image-selector'}
                             onChange={handleChange}
+                            onBlur={onBlur}
                         />
                     </Button>
                 </Grid>

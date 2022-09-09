@@ -60,7 +60,7 @@ const IngredientsTable: FC = () => {
     const handlePageChange = (_event: any, newPage: number): void => {
         router.push(
             {
-                pathname: '/',
+                pathname: router.pathname,
                 query: { page: newPage },
             },
             undefined,
