@@ -34,6 +34,7 @@ const validationSchema = yup.object({
 export default function Login() {
     const router = useRouter()
     const reset = (router.query.reset as string) || ''
+    const [loading, setLoading] = useState(false)
 
     const { login } = useAuth({
         middleware: 'guest',
@@ -46,8 +47,10 @@ export default function Login() {
             password: '',
         },
         validationSchema: validationSchema,
-        onSubmit: ({ email, password }) => {
-            login({ email, password, setErrors, setStatus })
+        onSubmit: async ({ email, password }) => {
+            setLoading(true)
+            await login({ email, password, setErrors, setStatus })
+            setLoading(false)
         },
     })
 
@@ -127,13 +130,24 @@ export default function Login() {
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
                     />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}>
-                        Login
-                    </Button>
+                    {!loading ? (
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}>
+                            Login
+                        </Button>
+                    ) : (
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            disabled
+                            sx={{ mt: 3, mb: 2 }}>
+                            Logging In...
+                        </Button>
+                    )}
                     <Grid container>
                         <Grid item xs>
                             <Link href="/forgot-password" variant="body2">
