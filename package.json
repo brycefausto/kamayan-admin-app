@@ -8,7 +8,7 @@
     "start": "next start",
     "export": "next export",
     "build-prod": "next build && next export",
-    "build-test": "NODE_ENV=test next build && next export "
+    "build-test": "cross-env NODE_ENV=test next build && next export "
   },
   "dependencies": {
     "@emotion/cache": "^11.9.3",
@@ -55,7 +55,6 @@
     "@types/react-alert": "^7.0.2",
     "autoprefixer": "^10.4.2",
     "babel-eslint": "^10.1.0",
-    "cross-env": "^7.0.3",
     "eslint": "^8.20.0",
     "eslint-config-next": "^12.2.5",
     "eslint-config-prettier": "^8.5.0",
